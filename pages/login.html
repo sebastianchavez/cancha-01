@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sesión — Golazo Sports Club</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-page="" class="bg-slate-50 min-h-screen flex flex-col">
+
+  <main class="flex-1 flex items-center justify-center p-4 py-12">
+    <div class="w-full max-w-md">
+      <a href="../index.html" class="flex items-center justify-center gap-2 mb-8">
+        <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-green-500 to-blue-600 flex items-center justify-center text-white" id="logo-icon"></div>
+        <div>
+          <div class="font-black text-xl leading-none text-slate-900">Golazo</div>
+          <div class="text-[10px] uppercase tracking-wider text-green-600 font-bold">Sports Club</div>
+        </div>
+      </a>
+
+      <div class="bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
+        <h1 class="text-2xl font-black text-slate-900 mb-1">Bienvenido de vuelta</h1>
+        <p class="text-slate-600 text-sm mb-6">Ingresa a tu cuenta para gestionar tus reservas.</p>
+
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-6">
+          <p class="text-xs text-blue-800"><strong>Cuenta demo:</strong> demo@cancha.com / 123456</p>
+        </div>
+
+        <form id="login-form" class="space-y-4">
+          <div>
+            <label class="field-label">Correo electrónico</label>
+            <input id="email" type="email" required class="field-input" placeholder="tu@correo.com" autocomplete="email">
+          </div>
+          <div>
+            <label class="field-label">Contraseña</label>
+            <div class="relative">
+              <input id="password" type="password" required class="field-input pr-10" placeholder="••••••" autocomplete="current-password">
+              <button type="button" id="toggle-pwd" class="absolute inset-y-0 right-0 px-3 text-slate-400 hover:text-slate-600">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" class="rounded border-slate-300 text-green-600 focus:ring-green-500">
+              <span class="text-slate-700">Recordarme</span>
+            </label>
+            <a href="recuperar.html" class="text-sm text-green-600 hover:text-green-700 font-medium">¿Olvidaste tu contraseña?</a>
+          </div>
+          <button type="submit" class="btn-gradient w-full justify-center">
+            <span id="btn-text">Iniciar sesión</span>
+            <div id="btn-spinner" class="spinner hidden"></div>
+          </button>
+        </form>
+
+        <div class="mt-6 pt-6 border-t border-slate-200 text-center">
+          <p class="text-sm text-slate-600">
+            ¿No tienes cuenta?
+            <a href="registro.html" class="text-green-600 hover:text-green-700 font-semibold">Regístrate</a>
+          </p>
+        </div>
+      </div>
+
+      <p class="text-center text-xs text-slate-500 mt-6">
+        Al continuar aceptas nuestros
+        <a href="terminos.html" class="underline">Términos</a> y
+        <a href="privacidad.html" class="underline">Políticas de Privacidad</a>.
+      </p>
+    </div>
+  </main>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script>
+    UI.mountLayout();
+    document.getElementById('logo-icon').innerHTML = UI.icons.soccer;
+
+    // Toggle password
+    document.getElementById('toggle-pwd').addEventListener('click', () => {
+      const p = document.getElementById('password');
+      p.type = p.type === 'password' ? 'text' : 'password';
+    });
+
+    // Submit
+    document.getElementById('login-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      const btnText = document.getElementById('btn-text');
+      const spinner = document.getElementById('btn-spinner');
+      btnText.textContent = 'Ingresando...';
+      spinner.classList.remove('hidden');
+      btn.disabled = true;
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      try {
+        Auth.login(email, password);
+        UI.toast('¡Bienvenido!', 'success');
+        setTimeout(() => {
+          const redirect = new URLSearchParams(location.search).get('redirect') || 'reserva.html';
+          location.href = redirect;
+        }, 800);
+      } catch (err) {
+        UI.toast(err.message, 'error', 4000);
+        btnText.textContent = 'Iniciar sesión';
+        spinner.classList.add('hidden');
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

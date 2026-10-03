@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle de reserva — Golazo Sports Club</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-page="perfil" class="bg-slate-50">
+
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <a href="perfil.html" class="inline-flex items-center gap-1 text-sm text-slate-600 hover:text-slate-900 mb-4">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      Volver a mi perfil
+    </a>
+
+    <div id="login-required" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-12 text-center">
+      <div class="w-16 h-16 mx-auto rounded-full bg-yellow-100 flex items-center justify-center mb-4">
+        <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900 mb-2">Inicia sesión</h3>
+      <p class="text-slate-600 mb-6">Necesitas estar autenticado para ver este detalle.</p>
+      <a href="login.html" class="btn-gradient">Iniciar sesión</a>
+    </div>
+
+    <div id="not-found" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-12 text-center">
+      <div class="w-16 h-16 mx-auto rounded-full bg-red-100 flex items-center justify-center mb-4">
+        <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900 mb-2">Reserva no encontrada</h3>
+      <p class="text-slate-600 mb-6">La reserva que buscas no existe o no te pertenece.</p>
+      <a href="perfil.html" class="btn-gradient">Volver a mi perfil</a>
+    </div>
+
+    <div id="detail-wrap" class="hidden space-y-6">
+      <!-- HEADER -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="aspect-[5/2] bg-slate-100 relative">
+          <img id="d-cancha-img" src="" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+          <div class="absolute bottom-4 left-6 right-6 text-white flex items-end justify-between">
+            <div>
+              <h1 id="d-cancha-name" class="text-2xl md:text-3xl font-black">—</h1>
+              <p id="d-cancha-desc" class="text-white/80 text-sm">—</p>
+            </div>
+            <div id="d-status"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- COL IZQ: detalles -->
+        <div class="md:col-span-2 space-y-6">
+          <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <h2 class="font-bold text-slate-900 mb-4">Información de la reserva</h2>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="bg-slate-50 rounded-lg p-4">
+                <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Código</div>
+                <div class="font-mono font-bold text-slate-900" id="d-id">—</div>
+              </div>
+              <div class="bg-slate-50 rounded-lg p-4">
+                <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Fecha</div>
+                <div class="font-bold text-slate-900" id="d-fecha">—</div>
+              </div>
+              <div class="bg-slate-50 rounded-lg p-4">
+                <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Horario</div>
+                <div class="font-bold text-slate-900" id="d-horario">—</div>
+              </div>
+              <div class="bg-slate-50 rounded-lg p-4">
+                <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Duración</div>
+                <div class="font-bold text-slate-900" id="d-duracion">—</div>
+              </div>
+              <div class="bg-slate-50 rounded-lg p-4">
+                <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Jugadores</div>
+                <div class="font-bold text-slate-900" id="d-jugadores">—</div>
+              </div>
+              <div class="bg-slate-50 rounded-lg p-4">
+                <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Total</div>
+                <div class="font-bold text-green-600 text-lg" id="d-total">—</div>
+              </div>
+            </div>
+            <div id="d-notes-wrap" class="hidden mt-4 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+              <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Notas</div>
+              <p id="d-notes" class="text-sm text-slate-700"></p>
+            </div>
+          </section>
+
+          <!-- TIMELINE -->
+          <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <h2 class="font-bold text-slate-900 mb-4">Estado de la reserva</h2>
+            <div id="timeline"></div>
+          </section>
+
+          <!-- PAGO -->
+          <section id="payment-section" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <h2 class="font-bold text-slate-900 mb-4">Pago</h2>
+            <div id="payment-info"></div>
+          </section>
+
+          <!-- CANCELACIÓN -->
+          <section id="cancel-section" class="hidden bg-red-50 border border-red-200 rounded-2xl p-6">
+            <h2 class="font-bold text-red-900 mb-2">Información de cancelación</h2>
+            <p class="text-sm text-red-800 mb-2"><strong>Motivo:</strong> <span id="d-cancel-reason">—</span></p>
+            <p class="text-sm text-red-800"><strong>Fecha:</strong> <span id="d-cancel-at">—</span></p>
+          </section>
+        </div>
+
+        <!-- COL DER: acciones -->
+        <aside class="space-y-4">
+          <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <h3 class="font-bold text-slate-900 mb-4">Acciones</h3>
+            <div class="space-y-2" id="actions"></div>
+          </div>
+
+          <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 text-sm text-blue-800">
+            <div class="flex items-start gap-2">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div>
+                <strong>¿Necesitas ayuda?</strong>
+                <p class="mt-1">Contáctanos y te asistiremos.</p>
+                <a href="contacto.html" class="underline font-semibold mt-1 inline-block">Ir a contacto</a>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/reservas.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script>
+    UI.mountLayout('perfil');
+
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id');
+    const r = id ? Reservas.findById(id) : null;
+    const user = Session.current();
+
+    if (!Session.isLogged()) {
+      document.getElementById('login-required').classList.remove('hidden');
+    } else if (!r || r.userId !== user.id) {
+      document.getElementById('not-found').classList.remove('hidden');
+    } else {
+      document.getElementById('detail-wrap').classList.remove('hidden');
+      const cancha = Catalog.canchasById(r.courtId);
+
+      // Hero
+      document.getElementById('d-cancha-img').src = UI.courtImage(cancha);
+      document.getElementById('d-cancha-name').textContent = cancha.nombre;
+      document.getElementById('d-cancha-desc').textContent = cancha.descripcion;
+      document.getElementById('d-status').innerHTML = UI.statusBadge(r.status);
+
+      // Info
+      document.getElementById('d-id').textContent = r.id.toUpperCase();
+      document.getElementById('d-fecha').textContent = formatDate(r.date, { short: true });
+      document.getElementById('d-horario').textContent = `${r.startTime}`;
+      document.getElementById('d-duracion').textContent = `${r.duration} hora${r.duration > 1 ? 's' : ''}`;
+      document.getElementById('d-jugadores').textContent = `${r.players} jugadores`;
+      document.getElementById('d-total').textContent = formatCurrency(r.total);
+
+      if (r.notes) {
+        document.getElementById('d-notes-wrap').classList.remove('hidden');
+        document.getElementById('d-notes').textContent = r.notes;
+      }
+
+      // Timeline
+      const timelineEl = document.getElementById('timeline');
+      const isCancel = r.status === 'cancelada';
+      const isCompleted = r.status === 'completada';
+      const isPending = r.status === 'pendiente';
+      const today = todayISO();
+      const isPast = r.date < today;
+
+      const steps = [
+        { label: 'Reserva creada', date: r.createdAt, done: true },
+        { label: isPending ? 'Pendiente de pago' : 'Pago confirmado', date: r.createdAt, done: !isPending && !isCancel },
+        { label: 'Fecha de juego', date: `${r.date}T${r.startTime}`, done: !isPending && !isCancel },
+        { label: isCancel ? 'Cancelada' : 'Completada', date: null, done: isCompleted }
+      ];
+
+      timelineEl.innerHTML = steps.map((s, i) => {
+        const stateClass = s.done ? 'done' : (i === steps.findIndex(x => !x.done) ? 'active' : '');
+        return `
+          <div class="timeline-step ${stateClass}">
+            <h3 class="font-bold text-slate-900">${s.label}</h3>
+            ${s.date ? `<p class="text-xs text-slate-500">${formatDateTime(s.date)}</p>` : ''}
+          </div>
+        `;
+      }).join('');
+
+      // Pago
+      const pago = Pagos.byReservation(r.id)[0];
+      if (pago) {
+        document.getElementById('payment-section').classList.remove('hidden');
+        document.getElementById('payment-info').innerHTML = `
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Operación</div>
+              <div class="font-mono font-bold text-slate-900">${pago.operationNumber}</div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Método</div>
+              <div class="font-bold text-slate-900">${pago.cardBrand} •••• ${pago.cardLast4}</div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Titular</div>
+              <div class="font-semibold text-slate-900">${pago.cardHolder || '—'}</div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Estado</div>
+              <div>${UI.paymentStatusBadge(pago.status)}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Cancel info
+      if (r.cancelReason || r.cancelledAt) {
+        document.getElementById('cancel-section').classList.remove('hidden');
+        document.getElementById('d-cancel-reason').textContent = r.cancelReason || 'No especificado';
+        document.getElementById('d-cancel-at').textContent = r.cancelledAt ? formatDateTime(r.cancelledAt) : '—';
+      }
+
+      // Acciones
+      const actions = document.getElementById('actions');
+      const canCancel = !isCancel && !isCompleted && r.date >= today;
+      const canPay = isPending;
+
+      let html = '';
+      if (canPay) {
+        html += `<a href="pago.html?resume=${r.id}" class="block w-full px-4 py-2.5 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md text-center">Pagar ahora</a>`;
+      }
+      if (canCancel) {
+        html += `<button id="cancel-btn" class="w-full px-4 py-2.5 bg-white border-2 border-red-300 text-red-600 hover:bg-red-50 font-semibold rounded-md">Anular reserva</button>`;
+      }
+      html += `<a href="reserva.html" class="block w-full px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-md text-center">Nueva reserva</a>`;
+      html += `<a href="contacto.html" class="block w-full px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold rounded-md text-center">Contactar soporte</a>`;
+
+      actions.innerHTML = html;
+
+      const cancelBtn = document.getElementById('cancel-btn');
+      if (cancelBtn) {
+        cancelBtn.addEventListener('click', async () => {
+          const ok = await UI.modal({
+            title: '¿Anular reserva?',
+            body: `<p>¿Estás seguro de anular esta reserva? Esta acción no se puede deshacer.</p>
+                   <div class="mt-3">
+                     <label class="field-label">Motivo (opcional)</label>
+                     <input id="cancel-reason" class="field-input" placeholder="Ej: Lluvia, cambio de planes...">
+                   </div>
+                   <p class="mt-3 text-xs text-slate-500">Cancelaciones con +24h de anticipación tienen reembolso del 100%.</p>`,
+            confirmText: 'Sí, anular',
+            cancelText: 'Cancelar',
+            danger: true
+          });
+          if (ok) {
+            try {
+              const reason = document.getElementById('cancel-reason').value;
+              ReservaFlow.cancel(r.id, reason);
+              UI.toast('Reserva anulada', 'success');
+              setTimeout(() => location.reload(), 800);
+            } catch (err) {
+              UI.toast(err.message, 'error');
+            }
+          }
+        });
+      }
+    }
+  </script>
+</body>
+</html>

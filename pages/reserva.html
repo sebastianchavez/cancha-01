@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservar cancha — Golazo Sports Club</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-page="" class="bg-slate-50">
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- STEPPER -->
+    <div class="flex items-center mb-8">
+      <div class="flex items-center">
+        <div class="step-circle done">1</div>
+        <div class="ml-2 mr-4 hidden sm:block">
+          <div class="text-xs text-slate-500">Paso 1</div>
+          <div class="text-sm font-bold text-slate-900">Cancha</div>
+        </div>
+      </div>
+      <div class="step-line done"></div>
+      <div class="flex items-center">
+        <div class="step-circle done">2</div>
+        <div class="ml-2 mr-4 hidden sm:block">
+          <div class="text-xs text-slate-500">Paso 2</div>
+          <div class="text-sm font-bold text-slate-900">Fecha y hora</div>
+        </div>
+      </div>
+      <div class="step-line done"></div>
+      <div class="flex items-center">
+        <div class="step-circle active">3</div>
+        <div class="ml-2 mr-4 hidden sm:block">
+          <div class="text-xs text-slate-500">Paso 3</div>
+          <div class="text-sm font-bold text-slate-900">Confirmar</div>
+        </div>
+      </div>
+      <div class="step-line"></div>
+      <div class="flex items-center">
+        <div class="step-circle">4</div>
+        <div class="ml-2 hidden sm:block">
+          <div class="text-xs text-slate-500">Paso 4</div>
+          <div class="text-sm font-bold text-slate-700">Pagar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TITULO -->
+    <div class="mb-6">
+      <h1 class="text-3xl font-black text-slate-900">Reserva tu cancha</h1>
+      <p class="text-slate-600">Completa los siguientes pasos para confirmar tu reserva.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-6">
+      <!-- FORMULARIO -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- 1. CANCHA -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold">1</div>
+            <h2 class="text-lg font-bold text-slate-900">Selecciona tu cancha</h2>
+          </div>
+          <div id="canchas-list" class="grid sm:grid-cols-2 gap-3"></div>
+        </section>
+
+        <!-- 2. FECHA Y HORA -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold">2</div>
+            <h2 class="text-lg font-bold text-slate-900">Fecha y hora</h2>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label class="field-label">Fecha</label>
+              <input type="date" id="fecha" class="field-input" required>
+            </div>
+            <div>
+              <label class="field-label">Duración (horas)</label>
+              <select id="duracion" class="field-input">
+                <option value="1">1 hora</option>
+                <option value="2" selected>2 horas</option>
+                <option value="3">3 horas</option>
+                <option value="4">4 horas</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label">Horarios disponibles</label>
+            <div id="time-slots" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2"></div>
+            <p id="no-slots-msg" class="hidden text-sm text-slate-500 italic mt-2">Selecciona una cancha y fecha para ver horarios.</p>
+          </div>
+        </section>
+
+        <!-- 3. DATOS -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold">3</div>
+            <h2 class="text-lg font-bold text-slate-900">Detalles adicionales</h2>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label class="field-label">Cantidad de jugadores</label>
+              <input type="number" id="players" min="2" max="22" value="10" class="field-input">
+            </div>
+          </div>
+          <div>
+            <label class="field-label">Notas (opcional)</label>
+            <textarea id="notes" rows="3" class="field-input" placeholder="Ej: Partido con amigos, llevar petos, etc."></textarea>
+          </div>
+        </section>
+      </div>
+
+      <!-- RESUMEN -->
+      <aside class="lg:col-span-1">
+        <div class="bg-white rounded-2xl shadow-lg border-2 border-green-200 p-6 sticky top-20">
+          <h2 class="text-lg font-bold text-slate-900 mb-4">Resumen de reserva</h2>
+          <div class="space-y-3 text-sm pb-4 border-b border-slate-200">
+            <div class="flex justify-between">
+              <span class="text-slate-600">Cancha</span>
+              <span id="sum-cancha" class="font-semibold text-slate-900 text-right">—</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-600">Fecha</span>
+              <span id="sum-fecha" class="font-semibold text-slate-900">—</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-600">Hora</span>
+              <span id="sum-hora" class="font-semibold text-slate-900">—</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-600">Duración</span>
+              <span id="sum-duracion" class="font-semibold text-slate-900">—</span>
+            </div>
+          </div>
+          <div class="space-y-2 pt-4 pb-4 border-b border-slate-200">
+            <div class="flex justify-between text-sm">
+              <span class="text-slate-600">Tarifa por hora</span>
+              <span id="sum-tarifa" class="font-semibold">S/ 0.00</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-slate-600">Subtotal</span>
+              <span id="sum-subtotal" class="font-semibold">S/ 0.00</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center pt-4">
+            <span class="text-base font-bold text-slate-900">Total</span>
+            <span id="sum-total" class="text-2xl font-black text-green-600">S/ 0.00</span>
+          </div>
+          <button id="continue-btn" class="btn-gradient w-full justify-center mt-6" disabled>
+            Continuar al pago
+          </button>
+          <p class="text-xs text-slate-500 text-center mt-3">
+            <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            Pago 100% seguro
+          </p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/reservas.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script>
+    UI.mountLayout();
+
+    // Estado
+    let state = {
+      courtId: '',
+      date: todayISO(),
+      startTime: '',
+      duration: 2,
+      players: 10,
+      notes: ''
+    };
+
+    // Pre-cargar cancha desde query
+    const params = new URLSearchParams(location.search);
+    if (params.get('cancha')) state.courtId = params.get('cancha');
+
+    // Render canchas
+    const list = document.getElementById('canchas-list');
+    list.innerHTML = Catalog.canchas().map(c => `
+      <label class="court-card flex flex-col cursor-pointer ${c.id === state.courtId ? 'selected' : ''}" data-id="${c.id}">
+        <input type="radio" name="cancha" value="${c.id}" ${c.id === state.courtId ? 'checked' : ''} class="hidden">
+        <div class="aspect-video bg-slate-100 relative">
+          <img src="${UI.courtImage(c, { w: 400, h: 250 })}" alt="${c.nombre}" class="w-full h-full object-cover">
+          ${c.techada ? '<span class="absolute top-2 right-2 px-2 py-0.5 text-[10px] font-bold bg-purple-600 text-white rounded">TECHADA</span>' : ''}
+        </div>
+        <div class="p-3 flex-1">
+          <div class="flex items-center gap-1 mb-1">
+            <span class="px-1.5 py-0.5 text-[10px] font-bold bg-green-100 text-green-700 rounded">${c.tipo}</span>
+          </div>
+          <h3 class="font-bold text-sm text-slate-900">${c.nombre}</h3>
+          <p class="text-xs text-slate-500">${c.superficie} · ${c.capacidad} jugadores</p>
+          <p class="text-base font-black text-green-600 mt-1">${formatCurrency(c.precioHora)}<span class="text-xs text-slate-500 font-normal">/hora</span></p>
+        </div>
+      </label>
+    `).join('');
+
+    list.querySelectorAll('.court-card').forEach(card => {
+      card.addEventListener('click', () => {
+        state.courtId = card.dataset.id;
+        list.querySelectorAll('.court-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        renderTimeSlots();
+        updateSummary();
+      });
+    });
+
+    // Date / duration
+    document.getElementById('fecha').value = state.date;
+    document.getElementById('fecha').min = todayISO();
+    document.getElementById('fecha').addEventListener('change', e => {
+      state.date = e.target.value;
+      state.startTime = '';
+      renderTimeSlots();
+      updateSummary();
+    });
+    document.getElementById('duracion').addEventListener('change', e => {
+      state.duration = Number(e.target.value);
+      state.startTime = '';
+      renderTimeSlots();
+      updateSummary();
+    });
+    document.getElementById('players').addEventListener('input', e => state.players = Number(e.target.value) || 10);
+    document.getElementById('notes').addEventListener('input', e => state.notes = e.target.value);
+
+    function renderTimeSlots() {
+      const grid = document.getElementById('time-slots');
+      const msg = document.getElementById('no-slots-msg');
+      if (!state.courtId || !state.date) {
+        grid.innerHTML = '';
+        msg.classList.remove('hidden');
+        return;
+      }
+      msg.classList.add('hidden');
+      const occupied = Reservas.occupiedByCourtDate(state.courtId, state.date);
+      const slots = [];
+      for (let h = 7; h <= 22; h++) {
+        const slot = `${String(h).padStart(2, '0')}:00`;
+        const cantReserve = state.duration;
+        const allSlots = Reservas.timeSlots(slot, cantReserve);
+        const conflict = allSlots.some(s => occupied.includes(s));
+        slots.push({ time: slot, disabled: conflict });
+      }
+      grid.innerHTML = slots.map(s => `
+        <button type="button" class="time-slot ${s.disabled ? 'disabled' : ''} ${state.startTime === s.time ? 'selected' : ''}" data-time="${s.time}" ${s.disabled ? 'disabled' : ''}>
+          ${s.time}
+        </button>
+      `).join('');
+      grid.querySelectorAll('.time-slot').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.startTime = btn.dataset.time;
+          grid.querySelectorAll('.time-slot').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          updateSummary();
+        });
+      });
+    }
+
+    function updateSummary() {
+      const cancha = state.courtId ? Catalog.canchasById(state.courtId) : null;
+      document.getElementById('sum-cancha').textContent = cancha ? cancha.nombre.replace('Cancha ', '') : '—';
+      document.getElementById('sum-fecha').textContent = state.date ? formatDate(state.date) : '—';
+      document.getElementById('sum-hora').textContent = state.startTime || '—';
+      document.getElementById('sum-duracion').textContent = state.startTime ? `${state.startTime} - ${endTime(state.startTime, state.duration)} (${state.duration}h)` : '—';
+      const subtotal = cancha ? cancha.precioHora * state.duration : 0;
+      document.getElementById('sum-tarifa').textContent = cancha ? formatCurrency(cancha.precioHora) : 'S/ 0.00';
+      document.getElementById('sum-subtotal').textContent = formatCurrency(subtotal);
+      document.getElementById('sum-total').textContent = formatCurrency(subtotal);
+
+      const ready = state.courtId && state.date && state.startTime;
+      document.getElementById('continue-btn').disabled = !ready;
+    }
+
+    function endTime(startTime, dur) {
+      const [h, m] = startTime.split(':').map(Number);
+      const total = h * 60 + m + dur * 60;
+      return `${String(Math.floor(total / 60)).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`;
+    }
+
+    document.getElementById('continue-btn').addEventListener('click', () => {
+      if (!Session.isLogged()) {
+        UI.toast('Inicia sesión para continuar', 'info');
+        setTimeout(() => location.href = `login.html?redirect=reserva.html&cancha=${state.courtId}`, 800);
+        return;
+      }
+      try {
+        const reserva = ReservaFlow.build({
+          courtId: state.courtId,
+          date: state.date,
+          startTime: state.startTime,
+          duration: state.duration,
+          players: state.players,
+          notes: state.notes
+        });
+        // Guardar la reserva pendiente y pasar a confirmación
+        sessionStorage.setItem('canchas_pending_reserva', JSON.stringify(reserva));
+        location.href = 'confirmacion.html';
+      } catch (err) {
+        UI.toast(err.message, 'error');
+      }
+    });
+
+    renderTimeSlots();
+    updateSummary();
+  </script>
+</body>
+</html>

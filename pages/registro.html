@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro — Golazo Sports Club</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-page="" class="bg-slate-50 min-h-screen flex flex-col">
+
+  <main class="flex-1 flex items-center justify-center p-4 py-12">
+    <div class="w-full max-w-md">
+      <a href="../index.html" class="flex items-center justify-center gap-2 mb-8">
+        <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-green-500 to-blue-600 flex items-center justify-center text-white" id="logo-icon"></div>
+      </a>
+
+      <div class="bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
+        <h1 class="text-2xl font-black text-slate-900 mb-1">Crear cuenta</h1>
+        <p class="text-slate-600 text-sm mb-6">Únete y reserva tus canchas en segundos.</p>
+
+        <form id="register-form" class="space-y-4">
+          <div>
+            <label class="field-label">Nombre completo</label>
+            <input id="name" type="text" required class="field-input" placeholder="Juan Pérez" minlength="3">
+          </div>
+          <div>
+            <label class="field-label">Correo electrónico</label>
+            <input id="email" type="email" required class="field-input" placeholder="tu@correo.com" autocomplete="email">
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="field-label">Teléfono</label>
+              <input id="phone" type="tel" required class="field-input" placeholder="987654321" pattern="[9]\d{8}" maxlength="9">
+            </div>
+            <div>
+              <label class="field-label">DNI (opcional)</label>
+              <input id="dni" type="text" class="field-input" placeholder="12345678" pattern="\d{8}" maxlength="8">
+            </div>
+          </div>
+          <div>
+            <label class="field-label">Contraseña</label>
+            <input id="password" type="password" required class="field-input" placeholder="Mínimo 6 caracteres" minlength="6">
+          </div>
+          <div>
+            <label class="field-label">Confirmar contraseña</label>
+            <input id="confirm" type="password" required class="field-input" placeholder="Repite tu contraseña">
+          </div>
+          <div class="flex items-start gap-2">
+            <input id="terms" type="checkbox" required class="mt-1 rounded border-slate-300 text-green-600 focus:ring-green-500">
+            <label for="terms" class="text-xs text-slate-600">
+              Acepto los <a href="terminos.html" class="text-green-600 underline">términos y condiciones</a>
+              y las <a href="privacidad.html" class="text-green-600 underline">políticas de privacidad</a>.
+            </label>
+          </div>
+          <button type="submit" class="btn-gradient w-full justify-center">
+            <span id="btn-text">Crear mi cuenta</span>
+            <div id="btn-spinner" class="spinner hidden"></div>
+          </button>
+        </form>
+
+        <div class="mt-6 pt-6 border-t border-slate-200 text-center">
+          <p class="text-sm text-slate-600">
+            ¿Ya tienes cuenta?
+            <a href="login.html" class="text-green-600 hover:text-green-700 font-semibold">Inicia sesión</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script>
+    UI.mountLayout();
+    document.getElementById('logo-icon').innerHTML = UI.icons.soccer;
+
+    document.getElementById('register-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      const btnText = document.getElementById('btn-text');
+      const spinner = document.getElementById('btn-spinner');
+      btnText.textContent = 'Creando cuenta...';
+      spinner.classList.remove('hidden');
+      btn.disabled = true;
+
+      const data = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        dni: document.getElementById('dni').value,
+        password: document.getElementById('password').value,
+        confirm: document.getElementById('confirm').value
+      };
+
+      try {
+        Auth.register(data);
+        UI.toast('¡Cuenta creada! Bienvenido.', 'success');
+        setTimeout(() => location.href = 'reserva.html', 800);
+      } catch (err) {
+        UI.toast(err.message, 'error', 4000);
+        btnText.textContent = 'Crear mi cuenta';
+        spinner.classList.add('hidden');
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

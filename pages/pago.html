@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagar reserva — Golazo Sports Club</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-page="" class="bg-slate-50">
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- STEPPER -->
+    <div class="flex items-center mb-8">
+      <div class="flex items-center">
+        <div class="step-circle done">1</div>
+        <div class="ml-2 mr-4 hidden sm:block">
+          <div class="text-xs text-slate-500">Paso 1</div>
+          <div class="text-sm font-bold text-slate-900">Cancha</div>
+        </div>
+      </div>
+      <div class="step-line done"></div>
+      <div class="flex items-center">
+        <div class="step-circle done">2</div>
+        <div class="ml-2 mr-4 hidden sm:block">
+          <div class="text-xs text-slate-500">Paso 2</div>
+          <div class="text-sm font-bold text-slate-900">Fecha y hora</div>
+        </div>
+      </div>
+      <div class="step-line done"></div>
+      <div class="flex items-center">
+        <div class="step-circle done">3</div>
+        <div class="ml-2 mr-4 hidden sm:block">
+          <div class="text-xs text-slate-500">Paso 3</div>
+          <div class="text-sm font-bold text-slate-900">Confirmar</div>
+        </div>
+      </div>
+      <div class="step-line done"></div>
+      <div class="flex items-center">
+        <div class="step-circle active">4</div>
+        <div class="ml-2 hidden sm:block">
+          <div class="text-xs text-slate-500">Paso 4</div>
+          <div class="text-sm font-bold text-slate-900">Pagar</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="no-data" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-12 text-center">
+      <div class="w-16 h-16 mx-auto rounded-full bg-yellow-100 flex items-center justify-center mb-4">
+        <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900 mb-2">No hay reserva pendiente</h3>
+      <p class="text-slate-600 mb-6">Debes iniciar el proceso de reserva.</p>
+      <a href="reserva.html" class="btn-gradient">Iniciar reserva</a>
+    </div>
+
+    <div class="mb-6">
+      <h1 class="text-3xl font-black text-slate-900">Realizar pago</h1>
+      <p class="text-slate-600">Ingresa los datos de tu tarjeta para confirmar la reserva.</p>
+    </div>
+
+    <div id="data-wrap" class="grid lg:grid-cols-3 gap-6">
+      <!-- FORMULARIO PAGO -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- Tarjeta preview -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+          <h3 class="font-bold text-slate-900 mb-4">Tu tarjeta</h3>
+          <div class="credit-card mb-4">
+            <div class="relative z-10">
+              <div class="flex justify-between items-start mb-8">
+                <div class="text-xs uppercase tracking-wider opacity-80">Golazo Sports</div>
+                <div id="card-brand-display" class="text-2xl font-black italic">VISA</div>
+              </div>
+              <div class="text-xl font-mono tracking-wider mb-6" id="card-number-display">•••• •••• •••• ••••</div>
+              <div class="flex justify-between items-end">
+                <div>
+                  <div class="text-[10px] uppercase tracking-wider opacity-70">Titular</div>
+                  <div class="text-sm font-semibold" id="card-holder-display">TU NOMBRE</div>
+                </div>
+                <div>
+                  <div class="text-[10px] uppercase tracking-wider opacity-70">Vence</div>
+                  <div class="text-sm font-mono font-semibold" id="card-expiry-display">MM/AA</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form id="pay-form" class="space-y-4">
+            <div>
+              <label class="field-label">Número de tarjeta</label>
+              <input id="card-number" type="text" inputmode="numeric" required class="field-input font-mono" placeholder="1234 5678 9012 3456" maxlength="19">
+            </div>
+            <div>
+              <label class="field-label">Nombre del titular</label>
+              <input id="card-holder" type="text" required class="field-input uppercase" placeholder="Como aparece en la tarjeta">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="field-label">Vencimiento</label>
+                <input id="card-expiry" type="text" inputmode="numeric" required class="field-input font-mono" placeholder="MM/AA" maxlength="5">
+              </div>
+              <div>
+                <label class="field-label">CVV</label>
+                <input id="card-cvv" type="password" inputmode="numeric" required class="field-input font-mono text-center" placeholder="•••" maxlength="4">
+              </div>
+            </div>
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 flex items-start gap-2 text-xs text-blue-800">
+              <svg class="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              <span>Tus datos están protegidos con encriptación SSL.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <input id="accept" type="checkbox" required class="mt-1 rounded border-slate-300 text-green-600 focus:ring-green-500">
+              <label for="accept" class="text-xs text-slate-600">
+                Acepto los <a href="terminos.html" class="text-green-600 underline">términos</a> y autorizo el cargo a mi tarjeta.
+              </label>
+            </div>
+            <button type="submit" class="btn-gradient w-full justify-center">
+              <span id="btn-text">Pagar ahora</span>
+              <div id="btn-spinner" class="spinner hidden"></div>
+            </button>
+          </form>
+        </section>
+
+        <!-- Métodos aceptados -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+          <h3 class="font-bold text-slate-900 mb-4">Métodos aceptados</h3>
+          <div class="flex flex-wrap gap-3">
+            <div class="px-4 py-2 bg-slate-50 rounded-md font-bold text-slate-700 text-sm">VISA</div>
+            <div class="px-4 py-2 bg-slate-50 rounded-md font-bold text-slate-700 text-sm">Mastercard</div>
+            <div class="px-4 py-2 bg-slate-50 rounded-md font-bold text-slate-700 text-sm">AMEX</div>
+            <div class="px-4 py-2 bg-slate-50 rounded-md font-bold text-slate-700 text-sm">Discover</div>
+          </div>
+          <p class="text-xs text-slate-500 mt-4">Demo: usa cualquier número válido (Luhn). Termina en 0000 para simular rechazo.</p>
+        </section>
+      </div>
+
+      <!-- RESUMEN -->
+      <aside class="lg:col-span-1">
+        <div class="bg-white rounded-2xl shadow-lg border-2 border-green-200 p-6 sticky top-20">
+          <h2 class="text-lg font-bold text-slate-900 mb-4">Detalle del cobro</h2>
+          <div class="space-y-3 pb-4 border-b border-slate-200">
+            <div class="flex items-start gap-3">
+              <div class="w-12 h-12 rounded bg-slate-100 flex-shrink-0 overflow-hidden">
+                <img id="res-img" src="" class="w-full h-full object-cover">
+              </div>
+              <div class="flex-1 text-sm">
+                <div id="res-cancha" class="font-bold text-slate-900">—</div>
+                <div id="res-fecha" class="text-xs text-slate-600">—</div>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-2 pt-4 pb-4 border-b border-slate-200 text-sm">
+            <div class="flex justify-between">
+              <span class="text-slate-600">Tarifa por hora</span>
+              <span id="res-tarifa" class="font-semibold">—</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-600">Cantidad de horas</span>
+              <span id="res-horas" class="font-semibold">—</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center pt-4">
+            <span class="text-base font-bold text-slate-900">Total</span>
+            <span id="res-total" class="text-2xl font-black text-green-600">—</span>
+          </div>
+
+          <div class="mt-6 p-3 bg-green-50 border border-green-200 rounded-lg flex items-center gap-2 text-xs text-green-800">
+            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <span>Garantía de devolución 24h antes</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/reservas.js"></script>
+  <script src="../assets/js/pago.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script>
+    UI.mountLayout();
+
+    // Guard: si no hay sesión, redirigir a login
+    if (!Session.isLogged()) {
+      UI.toast('Inicia sesión para continuar', 'info');
+      setTimeout(() => location.href = 'login.html?redirect=pago.html', 800);
+    }
+
+    const raw = sessionStorage.getItem('canchas_pending_reserva');
+    if (!raw) {
+      document.getElementById('no-data').classList.remove('hidden');
+      document.getElementById('data-wrap').classList.add('hidden');
+    } else {
+      const r = JSON.parse(raw);
+      const cancha = Catalog.canchasById(r.courtId);
+      document.getElementById('res-img').src = UI.courtImage(cancha, { w: 200, h: 200 });
+      document.getElementById('res-cancha').textContent = cancha.nombre;
+      document.getElementById('res-fecha').textContent = `${formatDate(r.date, { short: true })} · ${r.startTime}`;
+      document.getElementById('res-tarifa').textContent = formatCurrency(r.precioHora);
+      document.getElementById('res-horas').textContent = `${r.duration} h`;
+      document.getElementById('res-total').textContent = formatCurrency(r.total);
+    }
+
+    // Live preview
+    const cardNumber = document.getElementById('card-number');
+    const cardHolder = document.getElementById('card-holder');
+    const cardExpiry = document.getElementById('card-expiry');
+    const cardCvv = document.getElementById('card-cvv');
+
+    cardNumber.addEventListener('input', e => {
+      e.target.value = Pago.formatCardNumber(e.target.value);
+      document.getElementById('card-number-display').textContent = e.target.value || '•••• •••• •••• ••••';
+      document.getElementById('card-brand-display').textContent = Pago.detectBrand(e.target.value);
+    });
+    cardHolder.addEventListener('input', e => {
+      document.getElementById('card-holder-display').textContent = (e.target.value || 'TU NOMBRE').toUpperCase();
+    });
+    cardExpiry.addEventListener('input', e => {
+      e.target.value = Pago.formatExpiry(e.target.value);
+      document.getElementById('card-expiry-display').textContent = e.target.value || 'MM/AA';
+    });
+    cardCvv.addEventListener('input', e => {
+      e.target.value = e.target.value.replace(/\D/g, '');
+    });
+
+    document.getElementById('pay-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      const btnText = document.getElementById('btn-text');
+      const spinner = document.getElementById('btn-spinner');
+      btnText.textContent = 'Procesando...';
+      spinner.classList.remove('hidden');
+      btn.disabled = true;
+
+      try {
+        if (!Session.isLogged()) throw new Error('Debes iniciar sesión.');
+        const r = JSON.parse(sessionStorage.getItem('canchas_pending_reserva'));
+        const user = Session.current();
+
+        // 1) Crear la reserva como pendiente
+        const nueva = ReservaFlow.create({ ...r, userId: user.id });
+
+        // 2) Procesar el pago
+        const pago = Pago.process({
+          reservationId: nueva.id,
+          number: cardNumber.value,
+          holder: cardHolder.value,
+          expiry: cardExpiry.value,
+          cvv: cardCvv.value
+        });
+
+        sessionStorage.setItem('canchas_last_payment', JSON.stringify(pago));
+        sessionStorage.removeItem('canchas_pending_reserva');
+        setTimeout(() => location.href = 'pago-confirmacion.html?id=' + pago.id, 800);
+      } catch (err) {
+        UI.toast(err.message, 'error', 5000);
+        btnText.textContent = 'Pagar ahora';
+        spinner.classList.add('hidden');
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

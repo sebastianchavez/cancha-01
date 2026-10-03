@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galería — Golazo Sports Club</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-page="galeria" class="bg-slate-50">
+
+  <!-- HERO -->
+  <section class="bg-gradient-to-br from-green-600 to-blue-700 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold uppercase tracking-wider mb-4">Galería</span>
+        <h1 class="text-4xl md:text-5xl font-black mb-4">Nuestras mejores jugadas</h1>
+        <p class="text-lg text-white/90">Revive los mejores momentos de nuestros partidos, torneos y eventos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTROS -->
+  <section class="py-8 bg-white border-b border-slate-200 sticky top-16 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center gap-2">
+        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-green-600 text-white" data-filter="all">Todas</button>
+        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200" data-filter="canchas">Canchas</button>
+        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200" data-filter="torneos">Torneos</button>
+        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200" data-filter="clases">Clases</button>
+        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200" data-filter="eventos">Eventos</button>
+        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200" data-filter="instalaciones">Instalaciones</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="galeria-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox">
+    <button id="close-lightbox" class="absolute top-4 right-4 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <div id="lightbox-content" class="text-center"></div>
+  </div>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script>
+    UI.mountLayout('galeria');
+
+    const grid = document.getElementById('galeria-grid');
+    let currentFilter = 'all';
+
+    function renderGallery(filter) {
+      currentFilter = filter;
+      const items = filter === 'all' ? Catalog.galeria() : Catalog.galeria().filter(i => i.categoria === filter);
+      grid.innerHTML = items.map(item => `
+        <div class="gallery-item" data-id="${item.id}">
+          <img src="${UI.galleryImage(item)}" alt="${item.titulo}">
+          <div class="gallery-caption">
+            <div class="text-xs uppercase tracking-wider opacity-80 mb-1">${item.categoria}</div>
+            <h3 class="font-bold">${item.titulo}</h3>
+            <p class="text-xs opacity-90 mt-1">${item.descripcion}</p>
+          </div>
+        </div>
+      `).join('');
+      grid.querySelectorAll('.gallery-item').forEach(el => {
+        el.addEventListener('click', () => openLightbox(Catalog.galeria().find(g => g.id === el.dataset.id)));
+      });
+    }
+
+    function openLightbox(item) {
+      const lb = document.getElementById('lightbox');
+      const content = document.getElementById('lightbox-content');
+      content.innerHTML = `
+        <img src="${UI.galleryImage(item, { w: 1200, h: 800 })}" alt="${item.titulo}" class="mx-auto">
+        <div class="text-white mt-4 max-w-2xl mx-auto px-4">
+          <h3 class="text-2xl font-bold mb-2">${item.titulo}</h3>
+          <p class="opacity-80">${item.descripcion}</p>
+        </div>
+      `;
+      lb.classList.add('active');
+    }
+
+    document.getElementById('close-lightbox').addEventListener('click', () => {
+      document.getElementById('lightbox').classList.remove('active');
+    });
+    document.getElementById('lightbox').addEventListener('click', e => {
+      if (e.target.id === 'lightbox') e.target.classList.remove('active');
+    });
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => {
+          b.classList.remove('bg-green-600', 'text-white');
+          b.classList.add('bg-slate-100', 'text-slate-700');
+        });
+        btn.classList.remove('bg-slate-100', 'text-slate-700');
+        btn.classList.add('bg-green-600', 'text-white');
+        renderGallery(btn.dataset.filter);
+      });
+    });
+
+    renderGallery('all');
+  </script>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmar reserva — Golazo Sports Club</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-page="" class="bg-slate-50">
+
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- STEPPER -->
+    <div class="flex items-center mb-8">
+      <div class="flex items-center">
+        <div class="step-circle done">1</div>
+        <div class="ml-2 mr-4 hidden sm:block">
+          <div class="text-xs text-slate-500">Paso 1</div>
+          <div class="text-sm font-bold text-slate-900">Cancha</div>
+        </div>
+      </div>
+      <div class="step-line done"></div>
+      <div class="flex items-center">
+        <div class="step-circle done">2</div>
+        <div class="ml-2 mr-4 hidden sm:block">
+          <div class="text-xs text-slate-500">Paso 2</div>
+          <div class="text-sm font-bold text-slate-900">Fecha y hora</div>
+        </div>
+      </div>
+      <div class="step-line done"></div>
+      <div class="flex items-center">
+        <div class="step-circle active">3</div>
+        <div class="ml-2 mr-4 hidden sm:block">
+          <div class="text-xs text-slate-500">Paso 3</div>
+          <div class="text-sm font-bold text-slate-900">Confirmar</div>
+        </div>
+      </div>
+      <div class="step-line"></div>
+      <div class="flex items-center">
+        <div class="step-circle">4</div>
+        <div class="ml-2 hidden sm:block">
+          <div class="text-xs text-slate-500">Paso 4</div>
+          <div class="text-sm font-bold text-slate-700">Pagar</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-6">
+      <h1 class="text-3xl font-black text-slate-900">Confirma tu reserva</h1>
+      <p class="text-slate-600">Revisa los detalles y procede al pago.</p>
+    </div>
+
+    <div id="no-data" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-12 text-center">
+      <div class="w-16 h-16 mx-auto rounded-full bg-yellow-100 flex items-center justify-center mb-4">
+        <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900 mb-2">No hay reserva pendiente</h3>
+      <p class="text-slate-600 mb-6">Debes iniciar el proceso de reserva.</p>
+      <a href="reserva.html" class="btn-gradient">Iniciar reserva</a>
+    </div>
+
+    <div id="data-wrap" class="grid lg:grid-cols-3 gap-6">
+      <!-- DETALLES -->
+      <div class="lg:col-span-2 space-y-6">
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+          <div class="p-6 flex items-center gap-3 border-b border-slate-100">
+            <div class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-slate-900">Tu reserva está casi lista</h2>
+              <p class="text-sm text-slate-600">Verifica los datos antes de proceder</p>
+            </div>
+          </div>
+          <div class="p-6 space-y-4">
+            <div class="flex items-start gap-4">
+              <div class="w-16 h-16 rounded-lg bg-slate-100 flex-shrink-0 overflow-hidden">
+                <img id="cancha-img" src="" alt="" class="w-full h-full object-cover">
+              </div>
+              <div class="flex-1">
+                <h3 id="cancha-name" class="font-bold text-slate-900">—</h3>
+                <p id="cancha-desc" class="text-sm text-slate-600">—</p>
+                <div class="flex flex-wrap gap-1 mt-2" id="cancha-tags"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+          <h3 class="font-bold text-slate-900 mb-4">Datos de la reserva</h3>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="bg-slate-50 rounded-lg p-4">
+              <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Fecha</div>
+              <div class="font-bold text-slate-900 flex items-center gap-2">
+                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <span id="r-fecha">—</span>
+              </div>
+            </div>
+            <div class="bg-slate-50 rounded-lg p-4">
+              <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Horario</div>
+              <div class="font-bold text-slate-900 flex items-center gap-2">
+                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span id="r-horario">—</span>
+              </div>
+            </div>
+            <div class="bg-slate-50 rounded-lg p-4">
+              <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Jugadores</div>
+              <div class="font-bold text-slate-900 flex items-center gap-2">
+                <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span id="r-players">—</span>
+              </div>
+            </div>
+            <div class="bg-slate-50 rounded-lg p-4">
+              <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Duración</div>
+              <div class="font-bold text-slate-900 flex items-center gap-2">
+                <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <span id="r-duracion">—</span>
+              </div>
+            </div>
+          </div>
+          <div id="notes-wrap" class="hidden mt-4 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+            <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Notas</div>
+            <p id="r-notes" class="text-sm text-slate-700"></p>
+          </div>
+        </section>
+
+        <section class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl border border-blue-200 p-6">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div class="text-sm text-slate-700">
+              <strong>Importante:</strong> Tu reserva se mantendrá como "Pendiente" hasta que completes el pago. Una vez confirmada, recibirás un correo con los detalles.
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- RESUMEN -->
+      <aside class="lg:col-span-1">
+        <div class="bg-white rounded-2xl shadow-lg border-2 border-green-200 p-6 sticky top-20">
+          <h2 class="text-lg font-bold text-slate-900 mb-4">Resumen de pago</h2>
+          <div class="space-y-2 pb-4 border-b border-slate-200">
+            <div class="flex justify-between text-sm">
+              <span class="text-slate-600">Tarifa por hora</span>
+              <span id="p-tarifa" class="font-semibold">—</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-slate-600">Cantidad de horas</span>
+              <span id="p-horas" class="font-semibold">—</span>
+            </div>
+          </div>
+          <div class="space-y-2 pt-4 pb-4 border-b border-slate-200">
+            <div class="flex justify-between text-sm">
+              <span class="text-slate-600">Subtotal</span>
+              <span id="p-subtotal" class="font-semibold">—</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-slate-600">IGV (incluido)</span>
+              <span id="p-igv" class="font-semibold">—</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center pt-4">
+            <span class="text-base font-bold text-slate-900">Total a pagar</span>
+            <span id="p-total" class="text-2xl font-black text-green-600">—</span>
+          </div>
+
+          <button id="pay-btn" class="btn-gradient w-full justify-center mt-6">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+            Ir a pagar
+          </button>
+          <a href="reserva.html" class="block text-center text-sm text-slate-600 hover:text-slate-900 mt-3">← Modificar reserva</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/reservas.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script>
+    UI.mountLayout();
+
+    // Guard: si no hay sesión, redirigir a login
+    if (!Session.isLogged()) {
+      UI.toast('Inicia sesión para continuar', 'info');
+      setTimeout(() => location.href = 'login.html?redirect=confirmacion.html', 800);
+    }
+
+    const raw = sessionStorage.getItem('canchas_pending_reserva');
+    if (!raw) {
+      document.getElementById('no-data').classList.remove('hidden');
+      document.getElementById('data-wrap').classList.add('hidden');
+    } else {
+      const r = JSON.parse(raw);
+      const cancha = Catalog.canchasById(r.courtId);
+
+      document.getElementById('cancha-img').src = UI.courtImage(cancha, { w: 200, h: 200 });
+      document.getElementById('cancha-name').textContent = cancha.nombre;
+      document.getElementById('cancha-desc').textContent = cancha.descripcion;
+      document.getElementById('cancha-tags').innerHTML = `
+        <span class="px-2 py-0.5 text-xs font-bold bg-green-100 text-green-700 rounded">${cancha.tipo}</span>
+        <span class="px-2 py-0.5 text-xs font-bold bg-blue-100 text-blue-700 rounded">${cancha.superficie}</span>
+        ${cancha.techada ? '<span class="px-2 py-0.5 text-xs font-bold bg-purple-100 text-purple-700 rounded">Techada</span>' : ''}
+      `;
+
+      document.getElementById('r-fecha').textContent = formatDate(r.date, { short: true });
+      document.getElementById('r-horario').textContent = `${r.startTime} - ${endTime(r.startTime, r.duration)}`;
+      document.getElementById('r-players').textContent = `${r.players} jugadores`;
+      document.getElementById('r-duracion').textContent = `${r.duration} hora${r.duration > 1 ? 's' : ''}`;
+
+      if (r.notes) {
+        document.getElementById('notes-wrap').classList.remove('hidden');
+        document.getElementById('r-notes').textContent = r.notes;
+      }
+
+      const subtotal = r.total;
+      const igv = subtotal * 0.18 / 1.18;
+      document.getElementById('p-tarifa').textContent = formatCurrency(r.precioHora);
+      document.getElementById('p-horas').textContent = r.duration;
+      document.getElementById('p-subtotal').textContent = formatCurrency(subtotal - igv);
+      document.getElementById('p-igv').textContent = formatCurrency(igv);
+      document.getElementById('p-total').textContent = formatCurrency(subtotal);
+    }
+
+    function endTime(startTime, dur) {
+      const [h, m] = startTime.split(':').map(Number);
+      const total = h * 60 + m + dur * 60;
+      return `${String(Math.floor(total / 60)).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`;
+    }
+
+    document.getElementById('pay-btn').addEventListener('click', () => {
+      location.href = 'pago.html';
+    });
+  </script>
+</body>
+</html>
