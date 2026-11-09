@@ -5,12 +5,12 @@
  */
 
 const DB_KEYS = {
-  users: 'canchas_users',
-  reservations: 'canchas_reservas',
-  payments: 'canchas_pagos',
-  session: 'canchas_session',
-  contact: 'canchas_contact_messages',
-  seeded: 'canchas_seeded_v1'
+  users: 'canchas_users_clp_v1',
+  reservations: 'canchas_reservas_clp_v1',
+  payments: 'canchas_pagos_clp_v1',
+  session: 'canchas_session_clp_v1',
+  contact: 'canchas_contact_messages_clp_v1',
+  seeded: 'canchas_seeded_v1_clp_v1'
 };
 
 /* =========================================================
@@ -23,7 +23,7 @@ const CANCHAS = [
     tipo: 'Fútbol 5',
     superficie: 'Grass sintético',
     capacidad: 10,
-    precioHora: 60,
+    precioHora: 15000,
     iluminada: true,
     techada: false,
     imagen: 'f5-1',
@@ -36,7 +36,7 @@ const CANCHAS = [
     tipo: 'Fútbol 5',
     superficie: 'Grass sintético',
     capacidad: 10,
-    precioHora: 60,
+    precioHora: 15000,
     iluminada: true,
     techada: true,
     imagen: 'f5-2',
@@ -49,7 +49,7 @@ const CANCHAS = [
     tipo: 'Fútbol 7',
     superficie: 'Grass sintético',
     capacidad: 14,
-    precioHora: 90,
+    precioHora: 22500,
     iluminada: true,
     techada: false,
     imagen: 'f7-1',
@@ -62,7 +62,7 @@ const CANCHAS = [
     tipo: 'Fútbol 7',
     superficie: 'Pasto natural',
     capacidad: 14,
-    precioHora: 110,
+    precioHora: 27500,
     iluminada: true,
     techada: false,
     imagen: 'f7-2',
@@ -75,7 +75,7 @@ const CANCHAS = [
     tipo: 'Fútbol 11',
     superficie: 'Grass sintético',
     capacidad: 22,
-    precioHora: 140,
+    precioHora: 35000,
     iluminada: true,
     techada: false,
     imagen: 'f11-1',
@@ -88,7 +88,7 @@ const CANCHAS = [
     tipo: 'Fútbol 11',
     superficie: 'Pasto natural',
     capacidad: 22,
-    precioHora: 180,
+    precioHora: 45000,
     iluminada: true,
     techada: false,
     imagen: 'f11-2',
@@ -101,12 +101,12 @@ const CANCHAS = [
    MOCK DATA - Clases / entrenamientos
    ========================================================= */
 const CLASES = [
-  { id: 'c1', nombre: 'Escuela de Fútbol Infantil', profesor: 'Carlos Méndez', dias: ['Lun', 'Mié', 'Vie'], hora: '16:00 - 17:30', edades: '6 - 12 años', precio: 250, cupos: 50 },
-  { id: 'c2', nombre: 'Tecnificación Juvenil', profesor: 'Luis Rojas', dias: ['Mar', 'Jue'], hora: '17:00 - 18:30', edades: '13 - 17 años', precio: 280, cupos: 30 },
-  { id: 'c3', nombre: 'Fútbol para Adultos', profesor: 'Miguel Ángel Torres', dias: ['Lun', 'Mié', 'Vie'], hora: '20:00 - 22:00', edades: '18+ años', precio: 200, cupos: 22 },
-  { id: 'c4', nombre: 'Arquería y Portería', profesor: 'Jorge Salinas', dias: ['Sáb'], hora: '09:00 - 11:00', edades: '12+ años', precio: 150, cupos: 8 },
-  { id: 'c5', nombre: 'Preparación Física', profesor: 'Ana Lucía Vega', dias: ['Mar', 'Jue'], hora: '19:00 - 20:30', edades: '14+ años', precio: 220, cupos: 20 },
-  { id: 'c6', nombre: 'Fútbol Femenino', profesor: 'María José Paz', dias: ['Mar', 'Jue'], hora: '18:00 - 19:30', edades: '14+ años', precio: 180, cupos: 30 }
+  { id: 'c1', nombre: 'Escuela de Fútbol Infantil', profesor: 'Carlos Méndez', dias: ['Lun', 'Mié', 'Vie'], hora: '16:00 - 17:30', edades: '6 - 12 años', precio: 62500, cupos: 50 },
+  { id: 'c2', nombre: 'Tecnificación Juvenil', profesor: 'Luis Rojas', dias: ['Mar', 'Jue'], hora: '17:00 - 18:30', edades: '13 - 17 años', precio: 70000, cupos: 30 },
+  { id: 'c3', nombre: 'Fútbol para Adultos', profesor: 'Miguel Ángel Torres', dias: ['Lun', 'Mié', 'Vie'], hora: '20:00 - 22:00', edades: '18+ años', precio: 50000, cupos: 22 },
+  { id: 'c4', nombre: 'Arquería y Portería', profesor: 'Jorge Salinas', dias: ['Sáb'], hora: '09:00 - 11:00', edades: '12+ años', precio: 37500, cupos: 8 },
+  { id: 'c5', nombre: 'Preparación Física', profesor: 'Ana Lucía Vega', dias: ['Mar', 'Jue'], hora: '19:00 - 20:30', edades: '14+ años', precio: 55000, cupos: 20 },
+  { id: 'c6', nombre: 'Fútbol Femenino', profesor: 'María José Paz', dias: ['Mar', 'Jue'], hora: '18:00 - 19:30', edades: '14+ años', precio: 45000, cupos: 30 }
 ];
 
 /* =========================================================
@@ -136,42 +136,42 @@ const SERVICIOS = [
     titulo: 'Alquiler de Canchas',
     icono: 'soccer',
     descripcion: 'Reserva canchas de fútbol 5, 7 y 11 con superficies sintéticas y naturales. Disponibilidad por horas.',
-    precioDesde: 60
+    precioDesde: 15000
   },
   {
     id: 's2',
     titulo: 'Escuela de Fútbol',
     icono: 'academy',
     descripcion: 'Programas de formación para niños, jóvenes y adultos con entrenadores certificados.',
-    precioDesde: 150
+    precioDesde: 37500
   },
   {
     id: 's3',
     titulo: 'Torneos y Eventos',
     icono: 'trophy',
     descripcion: 'Organización de torneos corporativos, barriales y empresariales con arbitraje incluido.',
-    precioDesde: 800
+    precioDesde: 200000
   },
   {
     id: 's4',
     titulo: 'Eventos Sociales',
     icono: 'party',
     descripcion: 'Celebra cumpleaños, despedidas y eventos especiales con paquetes personalizados.',
-    precioDesde: 350
+    precioDesde: 87500
   },
   {
     id: 's5',
     titulo: 'Entrenamiento Personal',
     icono: 'trainer',
     descripcion: 'Sesiones individuales o grupales con entrenadores especializados.',
-    precioDesde: 80
+    precioDesde: 20000
   },
   {
     id: 's6',
     titulo: 'Alquiler de Buffet',
     icono: 'buffet',
     descripcion: 'Espacio de catering y bebidas para complementar tu partido.',
-    precioDesde: 50
+    precioDesde: 12500
   }
 ];
 
@@ -194,10 +194,10 @@ const HORARIOS = [
 const BUSINESS_INFO = {
   nombre: 'Golazo Sports Club',
   eslogan: 'Tu cancha, tu pasión',
-  telefono: '+51 987 654 321',
-  whatsapp: '+51987654321',
+  telefono: '+56 9 8765 4321',
+  whatsapp: '+56 9 8765 4321',
   email: 'contacto@golazosports.com',
-  direccion: 'Av. Deportiva 123, San Miguel, Lima - Perú',
+  direccion: 'Av. Deportiva 123, San Miguel, Santiago - Chile',
   referencia: 'A 2 cuadras del Óvalo de la Av. La Marina',
   coordenadas: { lat: -12.0464, lng: -77.0428 },
   redes: {
@@ -246,7 +246,7 @@ function uid(prefix = 'id') {
 }
 
 function formatCurrency(amount) {
-  return `S/ ${Number(amount).toFixed(2)}`;
+  return 'CLP$ ' + Number(amount).toLocaleString('es-CL', { maximumFractionDigits: 0 });
 }
 
 function formatDate(iso, opts = {}) {
@@ -256,13 +256,13 @@ function formatDate(iso, opts = {}) {
   if (opts.short) {
     return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
   }
-  return d.toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' });
+  return d.toLocaleDateString('es-CL', { day: '2-digit', month: 'long', year: 'numeric' });
 }
 
 function formatDateTime(iso) {
   const d = typeof iso === 'string' ? new Date(iso) : iso;
   if (isNaN(d.getTime())) return '';
-  return `${formatDate(d)} ${d.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' })}`;
+  return `${formatDate(d)} ${d.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' })}`;
 }
 
 function todayISO(offsetDays = 0) {
@@ -338,7 +338,7 @@ function seedDatabase(force = false) {
       startTime: '20:00',
       duration: 1,
       status: 'completada',
-      total: 60,
+      total: 15000,
       notes: 'Partido con amigos',
       players: 10,
       createdAt: new Date(Date.now() - 8 * 86400000).toISOString()
@@ -351,7 +351,7 @@ function seedDatabase(force = false) {
       startTime: '18:00',
       duration: 2,
       status: 'completada',
-      total: 180,
+      total: 45000,
       notes: 'Torneo barrial',
       players: 14,
       createdAt: new Date(Date.now() - 3 * 86400000).toISOString()
@@ -364,7 +364,7 @@ function seedDatabase(force = false) {
       startTime: '19:00',
       duration: 2,
       status: 'confirmada',
-      total: 280,
+      total: 70000,
       notes: 'Final del torneo',
       players: 22,
       createdAt: new Date(Date.now() - 1 * 86400000).toISOString()
@@ -377,7 +377,7 @@ function seedDatabase(force = false) {
       startTime: '21:00',
       duration: 1,
       status: 'pendiente',
-      total: 60,
+      total: 15000,
       notes: 'Esperando pago',
       players: 8,
       createdAt: new Date().toISOString()
@@ -390,7 +390,7 @@ function seedDatabase(force = false) {
       startTime: '17:00',
       duration: 1,
       status: 'cancelada',
-      total: 110,
+      total: 27500,
       notes: 'Lluvia',
       players: 10,
       createdAt: new Date(Date.now() - 22 * 86400000).toISOString()
@@ -399,9 +399,9 @@ function seedDatabase(force = false) {
   Store.set(DB_KEYS.reservations, reservations);
 
   const payments = [
-    { id: 'pay_001', reservationId: 'res_001', cardLast4: '4242', cardBrand: 'VISA', amount: 60, status: 'aprobado', paidAt: new Date(Date.now() - 8 * 86400000).toISOString() },
-    { id: 'pay_002', reservationId: 'res_002', cardLast4: '5555', cardBrand: 'MASTERCARD', amount: 180, status: 'aprobado', paidAt: new Date(Date.now() - 3 * 86400000).toISOString() },
-    { id: 'pay_003', reservationId: 'res_003', cardLast4: '4242', cardBrand: 'VISA', amount: 280, status: 'aprobado', paidAt: new Date(Date.now() - 1 * 86400000).toISOString() }
+    { id: 'pay_001', reservationId: 'res_001', cardLast4: '4242', cardBrand: 'VISA', amount: 15000, status: 'aprobado', paidAt: new Date(Date.now() - 8 * 86400000).toISOString() },
+    { id: 'pay_002', reservationId: 'res_002', cardLast4: '5555', cardBrand: 'MASTERCARD', amount: 45000, status: 'aprobado', paidAt: new Date(Date.now() - 3 * 86400000).toISOString() },
+    { id: 'pay_003', reservationId: 'res_003', cardLast4: '4242', cardBrand: 'VISA', amount: 70000, status: 'aprobado', paidAt: new Date(Date.now() - 1 * 86400000).toISOString() }
   ];
   Store.set(DB_KEYS.payments, payments);
 

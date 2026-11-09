@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-CL">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -156,7 +156,7 @@
               <span id="p-subtotal" class="font-semibold">—</span>
             </div>
             <div class="flex justify-between text-sm">
-              <span class="text-slate-600">IGV (incluido)</span>
+              <span class="text-slate-600">IVA (incluido)</span>
               <span id="p-igv" class="font-semibold">—</span>
             </div>
           </div>
@@ -217,7 +217,7 @@
       }
 
       const subtotal = r.total;
-      const igv = subtotal * 0.18 / 1.18;
+      const igv = subtotal * 0.19 / 1.19;
       document.getElementById('p-tarifa').textContent = formatCurrency(r.precioHora);
       document.getElementById('p-horas').textContent = r.duration;
       document.getElementById('p-subtotal').textContent = formatCurrency(subtotal - igv);

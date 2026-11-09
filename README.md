@@ -91,7 +91,7 @@ cancha-01/
   startTime: '20:00',
   duration: 2,        // horas
   status: 'pendiente'|'confirmada'|'en_curso'|'completada'|'cancelada',
-  total: 120,
+  total: 30000,
   notes: 'Partido con amigos',
   players: 10,
   createdAt: '...'
@@ -106,7 +106,7 @@ cancha-01/
   cardLast4: '4242',
   cardBrand: 'VISA',
   cardHolder: 'SEBASTIAN CASTRO',
-  amount: 120,
+  amount: 30000,
   status: 'aprobado'|'rechazado',
   operationNumber: 'OP-XXX',
   paidAt: '...'

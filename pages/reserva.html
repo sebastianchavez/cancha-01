@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-CL">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -138,16 +138,16 @@
           <div class="space-y-2 pt-4 pb-4 border-b border-slate-200">
             <div class="flex justify-between text-sm">
               <span class="text-slate-600">Tarifa por hora</span>
-              <span id="sum-tarifa" class="font-semibold">S/ 0.00</span>
+              <span id="sum-tarifa" class="font-semibold">CLP$ 0</span>
             </div>
             <div class="flex justify-between text-sm">
               <span class="text-slate-600">Subtotal</span>
-              <span id="sum-subtotal" class="font-semibold">S/ 0.00</span>
+              <span id="sum-subtotal" class="font-semibold">CLP$ 0</span>
             </div>
           </div>
           <div class="flex justify-between items-center pt-4">
             <span class="text-base font-bold text-slate-900">Total</span>
-            <span id="sum-total" class="text-2xl font-black text-green-600">S/ 0.00</span>
+            <span id="sum-total" class="text-2xl font-black text-green-600">CLP$ 0</span>
           </div>
           <button id="continue-btn" class="btn-gradient w-full justify-center mt-6" disabled>
             Continuar al pago
@@ -271,7 +271,7 @@
       document.getElementById('sum-hora').textContent = state.startTime || '—';
       document.getElementById('sum-duracion').textContent = state.startTime ? `${state.startTime} - ${endTime(state.startTime, state.duration)} (${state.duration}h)` : '—';
       const subtotal = cancha ? cancha.precioHora * state.duration : 0;
-      document.getElementById('sum-tarifa').textContent = cancha ? formatCurrency(cancha.precioHora) : 'S/ 0.00';
+      document.getElementById('sum-tarifa').textContent = cancha ? formatCurrency(cancha.precioHora) : 'CLP$ 0';
       document.getElementById('sum-subtotal').textContent = formatCurrency(subtotal);
       document.getElementById('sum-total').textContent = formatCurrency(subtotal);
 
